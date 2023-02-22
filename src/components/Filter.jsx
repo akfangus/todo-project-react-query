@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 export default function Filter({ filters, filter, onFilterChange }) {
+  console.log("필터");
   return (
     <Stdiv>
       <Stul>

@@ -3,6 +3,7 @@ import Form from "../components/Form";
 import styled from "styled-components";
 
 export default function AddTodo() {
+  //   console.log("에드투두");
   return (
     <Stdiv>
       할일 기록하기

@@ -6,7 +6,6 @@ import styled from "styled-components";
 const filters = ["all", "active", "completed"];
 export default function TodoList() {
   const [filter, setFilter] = useState(filters[0]);
-  console.log("filter", filter);
   return (
     <Stdiv>
       <Filter

@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { closeModal } from "../redux/modules/modalSlice";
 import styled from "styled-components";
+import { useMutation, useQueryClient } from "react-query";
+import { editTodo } from "../api/todoApi";
 
-export default function Modal({ btnToggle }) {
+export default function Modal({ btnToggle, id }) {
   const { toggle, data } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 
@@ -25,6 +27,28 @@ export default function Modal({ btnToggle }) {
     dispatch(closeModal());
   };
 
+  //submit시 수정
+  const client = useQueryClient();
+  const EditTodoMutaion = useMutation(editTodo, {
+    onSuccess: () => {
+      alert("Todo created successfully!!!");
+      client.invalidateQueries("todos");
+      handelCloseModal();
+    },
+  });
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    if (!title.trim() || !content.trim()) {
+      alert("빈칸 채우세요");
+      return;
+    }
+    EditTodoMutaion.mutate({
+      target: id,
+      title,
+      content,
+    });
+  };
+
   if (!toggle) {
     console.log("null!");
     return null;
@@ -33,17 +57,19 @@ export default function Modal({ btnToggle }) {
     <Container>
       <Background>
         <ModalBlock>
-          <input
-            type="text"
-            value={title}
-            onChange={titleChangeHandler}
-          ></input>
-          <input
-            type="text"
-            value={content}
-            onChange={contentChangeHandler}
-          ></input>
-          <button>OK</button>
+          <form onSubmit={onSubmitHandler}>
+            <input
+              type="text"
+              value={title}
+              onChange={titleChangeHandler}
+            ></input>
+            <input
+              type="text"
+              value={content}
+              onChange={contentChangeHandler}
+            ></input>
+            <button>OK</button>
+          </form>
           <button onClick={handelCloseModal}>Close</button>
         </ModalBlock>
       </Background>

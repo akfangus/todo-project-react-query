@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "./Button";
-import EditModal from "./EditModal";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../redux/modules/modalSlice";
 import Modal from "./Modal";
@@ -53,7 +52,7 @@ export default function Detail() {
       </StDiv2>
       {/* <Modal /> */}
       {
-        isModalOpen ? <Modal btnToggle={toggleChange} /> : null //기계역할
+        isModalOpen ? <Modal btnToggle={toggleChange} id={id} /> : null //기계역할
       }
     </Stdiv>
   );
