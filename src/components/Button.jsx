@@ -16,6 +16,7 @@ const Buttons = styled.button`
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s;
+  border-radius: 5px;
 
   &:hover {
     transform: scale(1.2);

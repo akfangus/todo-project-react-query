@@ -2,7 +2,6 @@ import axios from "axios";
 
 const getTodos = async () => {
   const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/todos`);
-  //   console.log(response.data);
   return response.data;
 };
 
@@ -11,7 +10,6 @@ const addTodo = async (newTodo) => {
 };
 
 const patchStatusTodo = async (payload) => {
-  console.log(payload);
   await axios.patch(
     `${process.env.REACT_APP_SERVER_URL}/todos/${payload.target}`,
     {
@@ -34,4 +32,18 @@ const editTodo = async (payload) => {
   );
 };
 
-export { getTodos, addTodo, patchStatusTodo, deleteTodo, editTodo };
+const addComments = async (newTodo) => {
+  await axios.patch(
+    `${process.env.REACT_APP_SERVER_URL}/todos/${newTodo.target}`,
+    { comments: newTodo.comments }
+  );
+};
+
+export {
+  getTodos,
+  addTodo,
+  patchStatusTodo,
+  deleteTodo,
+  editTodo,
+  addComments,
+};

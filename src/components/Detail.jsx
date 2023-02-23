@@ -8,12 +8,12 @@ import Button from "./Button";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../redux/modules/modalSlice";
 import Modal from "./Modal";
+import CommentModal from "./CommentModal";
 
 export default function Detail() {
   const { id } = useParams();
   const { isLoading, isError, data: todos } = useQuery("todos", getTodos);
   const target = todos?.filter((todo) => todo.id === id)[0];
-  console.log("come");
 
   //이전으로
   const navigate = useNavigate();
@@ -22,15 +22,11 @@ export default function Detail() {
   };
 
   //모달창
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  //
 
+  //
+  const { toggle, data } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
-  const toggleChange = () => {
-    setIsModalOpen((prev) => !prev);
-  };
   const btnToggleModal = () => {
-    toggleChange();
     dispatch(openModal({ title: target.title, content: target.content }));
   };
 
@@ -52,8 +48,9 @@ export default function Detail() {
       </StDiv2>
       {/* <Modal /> */}
       {
-        isModalOpen ? <Modal btnToggle={toggleChange} id={id} /> : null //기계역할
+        toggle ? <Modal id={id} /> : null //기계역할
       }
+      <CommentModal />
     </Stdiv>
   );
 }

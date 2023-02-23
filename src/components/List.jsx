@@ -4,11 +4,10 @@ import { getTodos, patchStatusTodo, deleteTodo } from "../api/todoApi";
 import ListElement from "./ListElement";
 
 export default function List({ filter }) {
-  console.log("리스트");
   const { isLoading, isError, data: todos } = useQuery("todos", getTodos);
   const filtered = getFilteredItems(todos, filter);
+  //   const filtered = todos;
   const queryClient = useQueryClient();
-  console.log("call");
 
   const deleteTodoMutation = useMutation(deleteTodo, {
     onSettled: () => {
@@ -40,7 +39,6 @@ export default function List({ filter }) {
 
   const handleChange = async (e) => {
     const status = e.target.checked ? "completed" : "active";
-    // console.log(status);
 
     toggleTodoMutation.mutate({
       target: e.target.value,

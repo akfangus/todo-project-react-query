@@ -9,7 +9,7 @@ const useInput = (num) => {
     setValue(e.target.value.slice(0, num));
   };
 
-  return [value, handler];
+  return [value, handler, setValue];
 };
 
 export default useInput;

@@ -5,14 +5,13 @@ import styled from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
 import { editTodo } from "../api/todoApi";
 
-export default function Modal({ btnToggle, id }) {
+export default function Modal({ id }) {
   const { toggle, data } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState(data.title);
   const [content, setContent] = useState(data.content);
 
-  //   const [content, setContent] = useState(data.content);
   const titleChangeHandler = (e) => {
     setTitle(e.target.value);
   };
@@ -21,9 +20,6 @@ export default function Modal({ btnToggle, id }) {
   };
 
   const handelCloseModal = () => {
-    btnToggle();
-    setTitle("");
-    setContent("");
     dispatch(closeModal());
   };
 
@@ -50,7 +46,6 @@ export default function Modal({ btnToggle, id }) {
   };
 
   if (!toggle) {
-    console.log("null!");
     return null;
   }
   return (
